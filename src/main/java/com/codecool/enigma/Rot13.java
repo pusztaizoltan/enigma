@@ -26,14 +26,12 @@ class Rot13 implements Cipher {
         }
         return decryptedMessage;
     }
-
-    private char encryptLetter(char letter) {
-        return letter;
-    }
-
-    private char decryptLetter(char letter) {
-        return letter;
-    }
+/*
+        // unnecessary methods
+    private char encryptLetter(char letter) { return letter; }
+    private char decryptLetter(char letter) { return letter; }
+*/
 }
+
 
 
