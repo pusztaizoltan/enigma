@@ -9,4 +9,8 @@ class EnigmaException extends Exception {
     public EnigmaException(String message, Throwable cause) {
         super(message, cause);
     }
+
+    public EnigmaException() {
+
+    }
 }

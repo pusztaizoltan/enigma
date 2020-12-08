@@ -1,70 +1,51 @@
 package com.codecool.enigma;
 
+import java.util.Arrays;
+
 class MorseCode implements Cipher {
 
     @Override
     public String encrypt(String message) {
-        String[] alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-        String[] morse = morseCharacters().split(" ");
-        message = message.toUpperCase().replaceAll("[^a-z0-9 ]","");
-        message = message.replaceAll(" ","/").replaceAll(""," ");
+        message = message.toUpperCase().replaceAll("[^A-Z0-9 ]","");
+        String[] messageArr = message.split("");
         String encryptedMessage = "";
-        for (int i = 0; i < alphanumeric.length; i++) {
-            encryptedMessage = message.replaceAll(alphanumeric[i], morse[i]);
+        int i;
+        for (String character: messageArr) {
+            i = Arrays.asList(alphanumeric()).indexOf(character);
+            encryptedMessage += i == -1 ? "/" : morseCharacters()[i];
+            encryptedMessage += " ";
         }
+        encryptedMessage = encryptedMessage.trim();
+//        System.out.println("Encryption with MorseCode result:\n\t" + encryptedMessage);   //testline
         return encryptedMessage;
     }
 
     @Override
     public String decrypt(String message) {
-        String[] alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-        String[] morse = morseCharacters().split(" ");
+        String[] messageArr = message.split(" ");
         String decryptedMessage = "";
-        message = " " + message + " ";
-        for (int i = 0; i < alphanumeric.length; i++) {
-            decryptedMessage = message.replaceAll(" " +  morse[i] + " " ,
-                                                  " " +  alphanumeric[i] + " ");
+        int i;
+        for (String character: messageArr) {
+            i = Arrays.asList(morseCharacters()).indexOf(character);
+            decryptedMessage += i == -1 ? " " : alphanumeric()[i];
         }
-        decryptedMessage = decryptedMessage.replaceAll(" ", "").replaceAll("/", " ");
+//        System.out.println("Decryption with MorseCode:\n\t" + decryptedMessage);   //testline
         return decryptedMessage;
     }
-    public static String morseCharacters(){
-        return ".-" + " " +
-                "-..." + " " +
-                "-.-." + " " +
-                "-.." + " " +
-                "." + " " +
-                "..-." + " " +
-                "--." + " " +
-                "...." + " " +
-                ".." + " " +
-                ".---" + " " +
-                "-.-" + " " +
-                ".-.." + " " +
-                "--" + " " +
-                "-." + " " +
-                "---" + " " +
-                ".--." + " " +
-                "--.-" + " " +
-                ".-." + " " +
-                "..." + " " +
-                "-" + " " +
-                "..-" + " " +
-                "...-" + " " +
-                ".--" + " " +
-                "-..-" + " " +
-                "-.--" + " " +
-                "--.." + " " +
-                ".----" + " " +
-                "..---" + " " +
-                "...--" + " " +
-                "....-" + " " +
-                "....." + " " +
-                "-...." + " " +
-                "--..." + " " +
-                "---.." + " " +
-                "----." + " " +
-                "-----";
+
+    public static String[] alphanumeric(){
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
+    }
+    public static String[] morseCharacters(){
+        return new String[]{".-", "-...", "-.-.", "-..",
+                            ".", "..-.", "--.", "....",
+                            "..", ".---", "-.-", ".-..",
+                            "--", "-.", "---", ".--.",
+                            "--.-", ".-.", "...", "-",
+                            "..-", "...-", ".--", "-..-",
+                            "-.--", "--..", ".----", "..---",
+                            "...--", "....-", ".....", "-....",
+                            "--...", "---..", "----.", "-----"};
     }
 }
 

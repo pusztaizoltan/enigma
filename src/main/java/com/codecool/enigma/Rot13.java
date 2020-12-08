@@ -2,28 +2,32 @@ package com.codecool.enigma;
 
 class Rot13 implements Cipher {
 
-//    abcdefghijklm nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ
-//    nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm
+    String base =  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    String coded = "nopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklm";
 
     @Override
     public String encrypt(String message) {
-        String[] base = "abcdefghijklm nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ".split("");
-        String[] coded = "nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm".split("");
+        String[] messageArr = message.split("");
         String encryptedMessage = "";
-        for (int i = 0; i < base.length; i++) {
-            encryptedMessage = message.replaceAll(base[i], coded[i]);
+        int i;
+        for (String character: messageArr) {
+            i = base.indexOf(character);
+            encryptedMessage += i == -1 ? character : coded.substring(i, i+1);
         }
+//        System.out.println("Encryption with Rot13 result:\n\t" + encryptedMessage);   //testline
         return encryptedMessage;
     }
 
     @Override
     public String decrypt(String message){
-        String[] coded = "abcdefghijklm nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ".split("");
-        String[] base = "nopqrstuvwxyz ABCDEFGHIJKLM NOPQRSTUVWXYZ abcdefghijklm".split("");
+        String[] messageArr = message.split("");;
         String decryptedMessage = "";
-        for(int i = 0; i<base.length;i++){
-            decryptedMessage = message.replaceAll(base[i], coded[i]);
+        int i;
+        for (String character: messageArr) {
+            i = coded.indexOf(character);
+            decryptedMessage += i == -1 ? character : base.substring(i, i+1);
         }
+//        System.out.println("Decryption with Rot13 result:\n\t" + decryptedMessage);   //testline
         return decryptedMessage;
     }
 /*
