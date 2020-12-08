@@ -17,6 +17,7 @@ class Enigma {
 //        args = new String[]{"-d", "morse", "morse.txt"};    //testline
         args = new String[]{"-d", "rail-fence", "railfence10.txt", "10"};    //testline
 
+
         ArgsParser argsParser = new ArgsParser(args);
         if (argsParser.option == "-h" || argsParser.option == null) {
             System.out.print(MENU);
